@@ -1,0 +1,67 @@
+#include "Arduino.h"
+
+// Const list
+const uint64_t ktime_second = 1000;
+
+int led_pin_list[] = {4, 5, 6, 7, 8, 9, 10, 11};
+int len_led_list = *(&led_pin_list + 1) - led_pin_list;
+bool end_or_begin = false;
+int time_delay(1 * ktime_second);
+int direction = 1;
+
+void setup()
+{
+    for (int x = 0; x < len_led_list; x++)
+    {
+        pinMode(led_pin_list[x], OUTPUT);
+    }
+    Serial.begin(9600);
+}
+
+void blinkPin(uint64_t x)
+{
+    digitalWrite(led_pin_list[x], HIGH);
+    delay(time_delay);
+    digitalWrite(led_pin_list[x], LOW);
+}
+
+void loopList()
+{
+    if (direction == 1)
+    {
+        for (int x = 0; x < len_led_list; x++)
+        {
+            if (end_or_begin)
+            {
+                end_or_begin = false;
+                continue;
+            }
+            Serial.print("PIN: ");
+            Serial.println(x);
+            blinkPin(x);
+        }
+        direction = -1;
+        end_or_begin = true;
+    }
+    else
+    {
+        for (int x = len_led_list - 1; x >= 0; x--)
+        {
+            if (end_or_begin)
+            {
+                end_or_begin = false;
+                continue;
+            }
+            Serial.print("PIN: ");
+            Serial.println(x);
+            blinkPin(x);
+        }
+        end_or_begin = true;
+        direction = 1;
+    }
+}
+
+void loop()
+{
+    loopList();
+}
