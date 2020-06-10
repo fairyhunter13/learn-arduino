@@ -1,0 +1,43 @@
+#include "Arduino.h"
+
+const uint16_t TIME_SECOND = 1000;
+
+uint16_t delay_time = 3 * TIME_SECOND;
+uint16_t yellow_delay_time = 1 * TIME_SECOND;
+uint8_t red_pin = 4;
+uint8_t yellow_pin = 5;
+uint8_t green_pin = 6;
+
+void setup()
+{
+    for (uint8_t index = red_pin; index <= green_pin; index++)
+    {
+        pinMode(index, OUTPUT);
+    }
+}
+
+void redLight()
+{
+    digitalWrite(red_pin, HIGH);
+    delay(delay_time);
+    digitalWrite(yellow_pin, HIGH);
+    delay(yellow_delay_time);
+    digitalWrite(red_pin, LOW);
+    digitalWrite(yellow_pin, LOW);
+}
+
+void greenLight()
+{
+    digitalWrite(green_pin, HIGH);
+    delay(delay_time);
+    digitalWrite(yellow_pin, HIGH);
+    delay(yellow_delay_time);
+    digitalWrite(green_pin, LOW);
+    digitalWrite(yellow_pin, LOW);
+}
+
+void loop()
+{
+    redLight();
+    greenLight();
+}
