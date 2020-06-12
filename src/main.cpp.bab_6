@@ -1,0 +1,31 @@
+#include <Arduino.h>
+
+int pin_led = 2;
+int pin_switch_on = 3;
+int pin_switch_off = 4;
+
+void setup()
+{
+    Serial.begin(9600);
+    pinMode(pin_led, OUTPUT);
+    pinMode(pin_switch_on, INPUT);
+    pinMode(pin_switch_off, INPUT);
+}
+
+void loop()
+{
+    if (digitalRead(pin_switch_on) == LOW)
+    {
+        Serial.print("PIN: ");
+        Serial.println(pin_switch_on);
+        Serial.println("Switch ON");
+        digitalWrite(pin_led, HIGH);
+    }
+    else if (digitalRead(pin_switch_off) == LOW)
+    {
+        Serial.print("PIN: ");
+        Serial.println(pin_switch_off);
+        Serial.println("Switch OFF");
+        digitalWrite(pin_led, LOW);
+    }
+}
