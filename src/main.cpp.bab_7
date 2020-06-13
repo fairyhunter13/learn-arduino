@@ -1,0 +1,18 @@
+#include <Arduino.h>
+
+const int PIN_LED = 2;
+const int PIN_ANALOG_INPUT = 0;
+
+void setup()
+{
+    Serial.begin(9600);
+    pinMode(PIN_LED, OUTPUT);
+}
+
+void loop()
+{
+    int resistor_value = analogRead(PIN_ANALOG_INPUT);
+    Serial.print("Potentiometer (Resistance Value): ");
+    Serial.println(resistor_value);
+    analogWrite(PIN_LED, resistor_value);
+}
