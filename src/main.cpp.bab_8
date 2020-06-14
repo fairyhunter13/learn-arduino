@@ -1,0 +1,23 @@
+#include <Arduino.h>
+
+const int PIN_LED = 2;
+int analog_value(0);
+
+void setup()
+{
+    Serial.begin(9600);
+    pinMode(PIN_LED, OUTPUT);
+}
+
+void loop()
+{
+    analogWrite(PIN_LED, analog_value);
+    Serial.print("Analog Value: ");
+    Serial.println(analog_value);
+    analog_value++;
+    if (analog_value > 255)
+    {
+        analog_value = 0;
+    }
+    delay(200);
+}
